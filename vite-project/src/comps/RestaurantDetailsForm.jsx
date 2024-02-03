@@ -125,7 +125,7 @@ const RestaurantDetailsForm = ({
                                     <button
                                         type="button"
                                         onClick={() => handleAddOpeningHours(day)}
-                                        className="bg-blue-500 text-white px-2 py-1 rounded-md"
+                                        className="bg-ffcc00 text-white px-2 py-1 rounded-md"
                                     >
                                         +
                                     </button>
@@ -136,10 +136,10 @@ const RestaurantDetailsForm = ({
                 ))}
             </div>
 
-            <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">
+            <button type="submit" className="bg-ffcc00 text-white px-4 py-2 rounded-md">
                 Register Restaurant
             </button>
-            <button onClick={toggleUserForm} className="mt-4 bg-gray-300 text-gray-800 px-4 py-2 rounded-md">
+            <button onClick={toggleUserForm} className="mt-4 bg-ffcc00 text-gray-800 px-4 py-2 rounded-md">
                 {showUserForm ? 'Hide User Registration Form' : 'Add User'}
             </button>
         </form>

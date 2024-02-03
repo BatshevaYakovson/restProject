@@ -11,6 +11,7 @@ import Home from './comps/HomePage'
 import { AppContext } from './context/context';
 import RestaurantDetails from './comps/RestaurantDetails'
 import RestaurantManagementPage from './comps/RestaurantManagementPage'
+import UserRegistrationForm from './comps/UserRegistrationForm'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -31,8 +32,9 @@ function App() {
               <Route path="/add-restaurant" element={<AddRestaurant />} />
               <Route path="/add-table" element={<AddTable />} />
               <Route path="/make-order" element={<AddOrder />} />
-              <Route path="/login" element={<Login />} />
               <Route path="/restaurant/:id" element={<RestaurantDetails />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<UserRegistrationForm />} />
               <Route path="/restaurant-management" element={<RestaurantManagementPage />} />
             </Routes>
           </main>

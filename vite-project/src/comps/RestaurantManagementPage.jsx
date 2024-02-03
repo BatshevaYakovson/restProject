@@ -144,7 +144,7 @@ const RestaurantManagementPage = () => {
                     </div>
 
                     {/* Button to add a new table */}
-                    <button onClick={handleAddTable}>Add Table</button>
+                    <button className="bg-ffcc00 text-white px-4 py-2 rounded-md" onClick={handleAddTable}>Add Table</button>
                     <TableDetails restaurantId={id} />
                     {/* {restaurantId && <TableDetails restaurantId={restaurantId} />} */}
                     {showTableForm && <TableForm restaurantId={id} onClose={handleTableFormClose} />}
