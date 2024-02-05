@@ -8,18 +8,20 @@ import AddTable from './comps/TableForm'
 import AddOrder from './comps/OrderForm'
 import Login from './comps/login'
 import Home from './comps/HomePage'
-import { AppContext } from './context/context';
 import RestaurantDetails from './comps/RestaurantDetails'
 import RestaurantManagementPage from './comps/RestaurantManagementPage'
 import UserRegistrationForm from './comps/UserRegistrationForm'
+import { AppProvider } from './context/AppContext';
+import RestaurantEditing from './comps/RestaurantEditing'
 
 function App() {
-  const [count, setCount] = useState(0)
-  const [user, setUser] = useState(null) //maybe change
+  // const [count, setCount] = useState(0)
+  // const [user, setUser] = useState(null) //maybe change
 
   return (
     <>
-      <AppContext.Provider value={({ user, setUser })}>
+
+      <AppProvider >
 
         <BrowserRouter>
           <Routes>
@@ -27,6 +29,7 @@ function App() {
           </Routes>
           <main className="flex-grow">
             <Routes>
+              <Route index element={<Home />} />
               <Route path="/home" element={<Home />} />
               <Route path="/*" element={<h2>Page 404</h2>} />
               <Route path="/add-restaurant" element={<AddRestaurant />} />
@@ -35,12 +38,14 @@ function App() {
               <Route path="/restaurant/:id" element={<RestaurantDetails />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<UserRegistrationForm />} />
+
               <Route path="/restaurant-management" element={<RestaurantManagementPage />} />
+              <Route path="/restaurant-edit" element={<RestaurantEditing />} />
             </Routes>
+
           </main>
         </BrowserRouter>
-      </AppContext.Provider >
-
+      </AppProvider>
     </>
 
   )

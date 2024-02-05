@@ -6,8 +6,6 @@ const RestaurantDetailsForm = ({
     handleOpeningHoursChange,
     handleAddOpeningHours,
     onSubmitRestaurant,
-    toggleUserForm,
-    showUserForm,
 }) => {
     return (
         <form onSubmit={onSubmitRestaurant} className="max-w-2xl mx-auto p-4">
@@ -139,9 +137,7 @@ const RestaurantDetailsForm = ({
             <button type="submit" className="bg-ffcc00 text-white px-4 py-2 rounded-md">
                 Register Restaurant
             </button>
-            <button onClick={toggleUserForm} className="mt-4 bg-ffcc00 text-gray-800 px-4 py-2 rounded-md">
-                {showUserForm ? 'Hide User Registration Form' : 'Add User'}
-            </button>
+            
         </form>
     );
 };

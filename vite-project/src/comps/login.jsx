@@ -3,11 +3,11 @@ import { useForm } from 'react-hook-form';
 import { SERVER_URL, apiRequestWithoutToken } from '../serverConnect/api';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
-import { AppContext } from '../context/context';
+import { useAppContext } from '../context/AppContext';
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { user, setUser } = useContext(AppContext);
+    const { user, updateUser } = useAppContext();
     const navigate = useNavigate();
 
     const onSubmitLogin = async (data) => {
@@ -15,9 +15,9 @@ const Login = () => {
             const url = SERVER_URL + "user/login";
             const resp = await apiRequestWithoutToken(url, "POST", data);
 
-            setUser(resp.data.user);
+            updateUser(resp.data.user);
             Cookies.set('token', resp.data.token, { expires: 1 });
-            Cookies.set('user', JSON.stringify(resp.data.username), { expires: 1 });
+            Cookies.set('user', JSON.stringify(resp.data.user), { expires: 1 });  
 
             navigate('/restaurant-management');
         } catch (err) {
@@ -38,7 +38,7 @@ const Login = () => {
                         className="mt-1 p-2 border border-gray-300 rounded-md w-full"
                         type="text"
                     />
-                    {errors.username && <div className="text-red-500 text-xs italic italic">Username is required</div>}
+                    {errors.username && <div className="text-red-500 text-xs italic">Username is required</div>}
                 </div>
 
                 <div className="mb-4">
@@ -51,10 +51,10 @@ const Login = () => {
                         type="password"
                     />
                     {errors.password && errors.password.type === 'required' && (
-                        <div className="text-red-500 text-xs italic italic">Password is required</div>
+                        <div className="text-red-500 text-xs italic">Password is required</div>
                     )}
                     {errors.password && errors.password.type === 'minLength' && (
-                        <div className="text-red-500 text-xs italic italic">Password must be at least 6 characters long</div>
+                        <div className="text-red-500 text-xs italic">Password must be at least 6 characters long</div>
                     )}
                 </div>
 

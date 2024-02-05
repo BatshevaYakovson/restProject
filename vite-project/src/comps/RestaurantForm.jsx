@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { SERVER_URL, apiRequest } from '../serverConnect/api';
-import UserRegistrationForm from '../comps/UserRegistrationForm'; // Import the UserRegistrationForm
 import RestaurantDetailsForm from '../comps/RestaurantDetailsForm';
+import { useNavigate } from 'react-router-dom';
 
 const RestaurantForm = () => {
     const [formData, setFormData] = useState({
@@ -25,16 +25,12 @@ const RestaurantForm = () => {
         owner: '',
         tables: [],
     });
+    
+    const navigate = useNavigate();
     const [restaurantId, setRestaurantId] = useState(null);
-    // const [ownerId, setOwnerId] = useState(() => {
-    //     const storedUserId = localStorage.getItem('userId');
-    //     return storedUserId || null;
-    // });
-    const [showUserForm, setShowUserForm] = useState(false);
+   
 
-    const toggleUserForm = () => {
-        setShowUserForm(!showUserForm);
-    };
+    
     const handleRestaurantChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -66,31 +62,7 @@ const RestaurantForm = () => {
         }));
     };
 
-    const onSubmitUser = async (event) => {
-        event.preventDefault();
-
-        const userUrl = SERVER_URL + 'user/register';
-        try {
-            const dataToSend = {
-                username: formData.username,
-                password: formData.password,
-
-            };
-
-            let resp = await apiRequest(userUrl, 'POST', dataToSend);
-            console.log('User registered:', resp.data);
-
-            // Set the owner ID using setOwnerId
-            // setOwnerId(resp.data.id);
-            console.log(resp.data);
-            localStorage.setItem('userId', resp.data.id);
-
-            setShowUserForm(true);
-
-        } catch (err) {
-            console.log('User registration error:', err);
-        }
-    };
+   
 
     const onSubmitRestaurant = async (event) => {
         event.preventDefault();
@@ -123,6 +95,7 @@ const RestaurantForm = () => {
             let resp = await apiRequest(url, 'POST', dataToSend);
             console.log('Restaurant registered:', resp.data);
             setRestaurantId(resp.data._id);
+            navigate('/restaurant-management');
 
         } catch (err) {
             console.log('Restaurant registration error:', err);
@@ -132,24 +105,13 @@ const RestaurantForm = () => {
 
     return (
         <div className="max-w-2xl mx-auto p-4">
-            {showUserForm && // Inside RestaurantForm component
-                <UserRegistrationForm
-
-                    formData={formData}
-                    handleUserChange={handleChange}
-                    onSubmitUserForm={onSubmitUser}
-                // restaurantId={restaurantId} // Pass restaurantId as a prop
-                />
-
-            }
+            
             <RestaurantDetailsForm
                 formData={formData}
                 handleRestaurantChange={handleRestaurantChange}
                 handleOpeningHoursChange={handleOpeningHoursChange}
                 handleAddOpeningHours={handleAddOpeningHours}
                 onSubmitRestaurant={onSubmitRestaurant}
-                toggleUserForm={toggleUserForm}
-                showUserForm={showUserForm}
             />
 
 

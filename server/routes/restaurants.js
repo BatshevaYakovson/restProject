@@ -106,10 +106,10 @@ router.get('/:restaurantId', async (req, res) => {
   }
 });
 
-// PUT Edit Restaurant
 // UPDATE Restaurant
 router.put('/update/:restaurantId', auth, async (req, res) => {
   try {
+    console.log("req body",req.body);
     const restaurantId = req.params.restaurantId;
 
     // Retrieve the restaurant

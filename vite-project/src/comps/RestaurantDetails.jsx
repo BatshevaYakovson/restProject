@@ -21,6 +21,7 @@ const RestaurantDetails = () => {
     });
     const [restaurant, setRestaurant] = useState({});
     const [selectedTable, setSelectedTable] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         const fetchRestaurant = async () => {
@@ -48,10 +49,19 @@ const RestaurantDetails = () => {
                 if (response.data) {
                     setSelectedTable(response.data);
                 } else {
+                    alert('No suitable tables found for the specified criteria.');
                     setSelectedTable(null);
+
                 }
             } catch (error) {
                 console.error(error);
+                if (error.response && error.response.status === 400) {
+                    // Handle 400 Bad Request error
+                    alert('No suitable tables found for the specified criteria.');
+                } else {
+                    // Handle other errors
+                    console.error('Error fetching tables:', error.message);
+                }
             }
         } else {
             // Display a message or handle the case where search parameters are not provided
@@ -59,7 +69,11 @@ const RestaurantDetails = () => {
         }
     };
 
-
+    const closeModal = () => {
+        setIsModalOpen(false);
+        // Reset selectedTable state
+        setSelectedTable(null);
+    };
 
 
     const {
@@ -122,10 +136,11 @@ const RestaurantDetails = () => {
                     </div>
                 </div>
 
-                <div className=" lg:w-1/2">
-                    <div className="bg-white p-6 rounded-lg ">
-                        <form onSubmit={handleSearch} className="mt-4">
-                            <h1 className="text-3xl font-bold text-center mb-4">Do you also want to enjoy a good meal?</h1>
+                <div className="lg:w-1/2">
+                    <div className="bg-white p-6 rounded-lg text-center">
+                        <form onSubmit={handleSearch} className="mt-4 flex flex-col items-center">
+
+                            <h1 className="text-3xl font-bold mb-4">Do you also want to enjoy a good meal?</h1>
 
                             <label className="block text-sm font-medium text-gray-700">Date:</label>
                             <input
@@ -151,10 +166,11 @@ const RestaurantDetails = () => {
                                 className="mt-1 p-2 border rounded-md"
                             />
 
-                            <button type="submit" className="bg-ffcc00 text-white px-4 py-2 rounded-md mt-2">
+                            <button type="submit" className="bg-ffcc00 text-white px-4 py-2 rounded-md mt-4">
                                 Search for Tables
                             </button>
                         </form>
+
 
 
                         {/* Display Order Form for Selected Table */}
@@ -168,19 +184,21 @@ const RestaurantDetails = () => {
                                         startTime={searchParams.startTime}
                                         numberOfGuests={searchParams.numberOfGuests}
                                         restaurantId={id}
+                                        closeModal={closeModal}
+
                                     />
                                 </div>
                             ) : (
                                 <p className="mt-4 text-red-500 font-bold">
-                                    {searchParams.date && searchParams.startTime && searchParams.numberOfGuests > 0
+                                    {/* {searchParams.date && searchParams.startTime && searchParams.numberOfGuests > 0
                                         ? 'No suitable tables found for the specified criteria.'
-                                        : ''}
+                                        : ''} */}
                                 </p>
                             )}
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
         </div >
     );
 };

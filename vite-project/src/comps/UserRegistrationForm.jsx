@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { SERVER_URL, apiRequest } from '../serverConnect/api';
+import { SERVER_URL, apiRequestWithoutToken } from '../serverConnect/api';
+import { useNavigate } from 'react-router-dom';
 
 const UserRegistrationForm = ({ formData, handleUserChange, onSubmitUserForm }) => {
   const [userData, setUserData] = useState({
     username: '',
     password: '',
   });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,14 +24,14 @@ const UserRegistrationForm = ({ formData, handleUserChange, onSubmitUserForm }) 
 
       };
 
-      let resp = await apiRequest(userUrl, 'POST', dataToSend);
+      let resp = await apiRequestWithoutToken(userUrl, 'POST', dataToSend);
       console.log('User registered:', resp.data);
 
       // Set the owner ID using setOwnerId
       // setOwnerId(resp.data.id);
       console.log(resp.data);
       localStorage.setItem('userId', resp.data.id);
-
+      navigate('/login');
 
     } catch (err) {
       console.log('User registration error:', err);
