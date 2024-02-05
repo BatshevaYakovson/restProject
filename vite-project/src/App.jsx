@@ -13,6 +13,7 @@ import RestaurantManagementPage from './comps/RestaurantManagementPage'
 import UserRegistrationForm from './comps/UserRegistrationForm'
 import { AppProvider } from './context/AppContext';
 import RestaurantEditing from './comps/RestaurantEditing'
+import Footer from './comps/Footer'
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -22,29 +23,32 @@ function App() {
     <>
 
       <AppProvider >
+        <div className="flex flex-col min-h-screen">
 
-        <BrowserRouter>
-          <Routes>
-            <Route path="/*" element={<Header />} />
-          </Routes>
-          <main className="flex-grow">
+          <BrowserRouter>
             <Routes>
-              <Route index element={<Home />} />
-              <Route path="/home" element={<Home />} />
-              <Route path="/*" element={<h2>Page 404</h2>} />
-              <Route path="/add-restaurant" element={<AddRestaurant />} />
-              <Route path="/add-table" element={<AddTable />} />
-              <Route path="/make-order" element={<AddOrder />} />
-              <Route path="/restaurant/:id" element={<RestaurantDetails />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<UserRegistrationForm />} />
-
-              <Route path="/restaurant-management" element={<RestaurantManagementPage />} />
-              <Route path="/restaurant-edit" element={<RestaurantEditing />} />
+              <Route path="/*" element={<Header />} />
             </Routes>
+            <main className="flex-grow">
+              <Routes>
+                <Route index element={<Home />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="/*" element={<h2>Page 404</h2>} />
+                <Route path="/add-restaurant" element={<AddRestaurant />} />
+                <Route path="/add-table" element={<AddTable />} />
+                <Route path="/make-order" element={<AddOrder />} />
+                <Route path="/restaurant/:id" element={<RestaurantDetails />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<UserRegistrationForm />} />
 
-          </main>
-        </BrowserRouter>
+                <Route path="/restaurant-management" element={<RestaurantManagementPage />} />
+                <Route path="/restaurant-edit" element={<RestaurantEditing />} />
+              </Routes>
+              <Footer></Footer>
+            </main>
+          </BrowserRouter>
+        </div>
+
       </AppProvider>
     </>
 

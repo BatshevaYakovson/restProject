@@ -4,12 +4,14 @@ const dayOpeningHoursSchema = new mongoose.Schema({
   startTime: {
     type: Date,
     required: true,
+    default: null, // Allow null as a default value
     get: (startTime) => startTime && startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     set: (startTime) => new Date(`2000-01-01 ${startTime}`), // Use a common date for setting
   },
   endTime: {
     type: Date,
     required: true,
+    default: null, // Allow null as a default value
     get: (endTime) => endTime && endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     set: (endTime) => new Date(`2000-01-01 ${endTime}`), // Use a common date for setting
   },
@@ -53,18 +55,15 @@ const restaurantSchema = new mongoose.Schema({
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User', 
+    ref: 'User',
     required: true,
   },
   tables: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Table', 
+    ref: 'Table',
   }],
 });
 
 const RestaurantModel = mongoose.model("Restaurant", restaurantSchema);
 
 module.exports = RestaurantModel;
-
-
-
