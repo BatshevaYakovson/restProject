@@ -8,7 +8,7 @@ const Footer = () => {
             <div className="container flex flex-col lg:flex-row justify-center pt-4 text-center">
                 <div className="all_right lg:col-4">© Bat Sheva shachar | 2023  </div>
                 <div className="lg:col-4 tel ml-4">
-                   📞   +972-9-951-49-40
+                   📞   +972-55-67-96-515
                 </div>
 
                 {/* <div className="lg:col-4 text-light flex gap-3">

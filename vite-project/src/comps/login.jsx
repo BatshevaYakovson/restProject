@@ -16,6 +16,7 @@ const Login = () => {
             const resp = await apiRequestWithoutToken(url, "POST", data);
 
             updateUser(resp.data.user);
+            console.log(resp.data.user);
             Cookies.set('token', resp.data.token, { expires: 1 });
             Cookies.set('user', JSON.stringify(resp.data.user), { expires: 1 });  
 
